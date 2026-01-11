@@ -1,4 +1,2 @@
-8,food
-100,Chocolates
-100,chocolates
-100,food
+Eight, Chocolates
+8,chocolates!
