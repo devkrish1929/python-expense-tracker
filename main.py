@@ -1,3 +1,5 @@
+from datetime import date
+
 while True:
     print("\n1. Add Expense")
     print("2. View Expenses")
@@ -16,8 +18,11 @@ while True:
 
         category = input("Enter expense category: ")
 
+        today = date.today()
+
         with open("expenses.txt", "a") as file:
-            file.write(amount + "," + category + "\n")
+            file.write(str(today) + "," + amount + "," + category + "\n")
+
 
         print("Expense added successfully!")
 
@@ -32,9 +37,9 @@ while True:
                     if not line:
                         continue  # skip empty lines
                     try:
-                        amount_str, category = line.split(",", 1)
+                        date_str, amount_str, category = line.split(",", 2)
                         amount_num = int(amount_str)
-                        print(f"{category} : {amount_num}")
+                        print(f"{date_str} | {category} | {amount_num}")
                         total += amount_num
                     except ValueError:
                         print(f"Skipping invalid entry: {line}")
