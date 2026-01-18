@@ -28,6 +28,8 @@ while True:
 
     elif choice == "2":
         total = 0
+        category_totals = {}
+
         print("\nExpenses:")
 
         try:
@@ -35,18 +37,33 @@ while True:
                 for line in file:
                     line = line.strip()
                     if not line:
-                        continue  # skip empty lines
+                        continue
+
                     try:
                         date_str, amount_str, category = line.split(",", 2)
-                        amount_num = int(amount_str)
-                        print(f"{date_str} | {category} | {amount_num}")
-                        total += amount_num
+                        amount = int(amount_str)
+
+                        print(f"{date_str} | {category} | {amount}")
+
+                        total += amount
+
+                        if category in category_totals:
+                            category_totals[category] += amount
+                        else:
+                            category_totals[category] = amount
+
                     except ValueError:
                         print(f"Skipping invalid entry: {line}")
 
-            print("Total spent:", total)
+            print("\nCategory-wise total:")
+            for cat, amt in category_totals.items():
+                print(f"{cat} : {amt}")
+
+            print("\nTotal spent:", total)
+
         except FileNotFoundError:
             print("No expenses found. Add some first!")
+
 
     elif choice == "3":
         print("Goodbye!")
